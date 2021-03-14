@@ -1,6 +1,6 @@
 # "I don't know": The Game
 
-Simple visual novel about investigating murder.
+Simple visual novel about investigating murder. Made in Unity.
 
 ![thumbnail](Doc/screen.png)
 
