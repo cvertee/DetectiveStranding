@@ -6,6 +6,6 @@ Simple visual novel about investigating murder. Made in Unity.
 
 Dialogues powered by https://github.com/YarnSpinnerTool/YarnSpinner-Unity
 
-Character arts by https://www.artstation.com/kefey
+Character arts/game design/story by https://www.artstation.com/kefey
 
 Greatest OST ever by https://soundcloud.com/d3adl1ne
