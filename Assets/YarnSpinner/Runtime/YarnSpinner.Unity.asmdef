@@ -1,0 +1,23 @@
+{
+    "name": "YarnSpinner.Unity",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:c8d7e1d8d781f8540a08c5c4f65848d8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.firelight.fmodunityintegration",
+            "expression": "2.0.0",
+            "define": "FMOD_2_OR_NEWER"
+        }
+    ],
+    "noEngineReferences": false
+}

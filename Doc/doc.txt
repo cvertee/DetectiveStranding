@@ -1,0 +1,29 @@
+﻿sc = SpawnCharacter
+sc ИмяПерса Эмоция Позиция
+
+se = SetEmotion
+se ИмяПерса Эмоция
+
+kc = KillCharacter
+kc ИмяПерса
+
+mc = MoveCharacter
+mc ИмяПерса Позиция (left|center|right)
+
+cb = ChangeBackground
+cb ИмяФона
+
+switchScene = изменить сцену
+switchScene названиеСцены
+
+hideDialogue showDialogue = скрыть и показать диалог
+<< hideDialogue >>
+<< showDialogue >>
+
+playSound %soundName% -----
+
+playMusic %musicName% ----- всё это можно посмотреть по папке resources где как чо называется
+
+playAmbient %ambientName% -
+
+removeAllClickableItems - удалить все текущие кликабельные предметы со сцены.

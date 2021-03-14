@@ -1,0 +1,49 @@
+title: DevA
+tags: 
+colorID: 0
+position: 1326,-61
+---
+CharA: Test line 1
+CharA: Test line 2
+[[ VariantToDevB |DevB]]
+===
+title: DevB
+tags: 
+colorID: 0
+position: 1446,-281
+---
+au: an default middle
+<< sc an default middle >>
+au: kc an
+<< kc an >>
+au: an default right
+<< sc an default right >>
+au: kc an in DevC
+[[ DevC ]]
+===
+title: DevC
+tags: 
+colorID: 0
+position: 1821,-406
+---
+au: kc...
+<< kc an >>
+au: an default left
+<< sc an default left >>
+===
+title: TestMove
+tags: 
+colorID: 0
+position: 1863,-9
+---
+<< sc an default left >>
+au: ...
+<< mc an center >> 
+au: ...
+<< mc an right >>
+au: ...
+<< mc an center >> 
+au: ...
+<< mc an left >> 
+au: ...
+===

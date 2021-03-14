@@ -1,0 +1,76 @@
+fileFormatVersion: 2
+guid: 002c4c1633b200540b585b03490a2b65
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 94073015eacc34c1d8fc6786e43d60ca, type: 3}
+  baseLanguageID: 
+  stringIDs:
+  - Dialogue-Start-0
+  - Dialogue-Start-1
+  - Dialogue-Start-2
+  - Dialogue-Start-3
+  - Dialogue-Start-4
+  - Dialogue-Start-5
+  - Dialogue-Start-6
+  - Dialogue-act2_start-7
+  - Dialogue-act2_start-8
+  - Dialogue-act2_start-9
+  - Dialogue-act2_start-10
+  - Dialogue-act2_start-11
+  - Dialogue-badhello-12
+  - Dialogue-badhello-13
+  - Dialogue-badhello-14
+  - Dialogue-badhello-15
+  - Dialogue-badhello-16
+  - Dialogue-badhello-17
+  - Dialogue-badhello-18
+  - Dialogue-badhello-19
+  - Dialogue-badhello-20
+  - Dialogue-badhello-21
+  - Dialogue-goodhello-22
+  - Dialogue-goodhello-23
+  - Dialogue-goodhello-24
+  - Dialogue-goodhello-25
+  - Dialogue-goodhello-26
+  - Dialogue-goodhello-27
+  - Dialogue-goodhello-28
+  - Dialogue-goodhello-29
+  - Dialogue-goodhello-30
+  - Dialogue-goodhello-31
+  - Dialogue-goodhello-32
+  - Dialogue-aboutcase-33
+  - Dialogue-aboutcase-34
+  - Dialogue-aboutcase-35
+  - Dialogue-details-36
+  - Dialogue-details-37
+  - Dialogue-details-38
+  - Dialogue-details-39
+  - Dialogue-details-40
+  - Dialogue-details-41
+  - Dialogue-details-42
+  - Dialogue-nodetails-43
+  - Dialogue-nodetails-44
+  - Dialogue-nodetails-45
+  - Dialogue-diemandetails-46
+  - Dialogue-diemandetails-47
+  - Dialogue-diemandetails-48
+  - Dialogue-weapondetails-49
+  - Dialogue-weapondetails-50
+  - Dialogue-weapondetails-51
+  - Dialogue-weapondetails-52
+  - Dialogue-weapondetails-53
+  - Dialogue-weapondetails-54
+  - Dialogue-weapondetails-55
+  - Dialogue-weapondetails-56
+  - Dialogue-thatsall-57
+  - Dialogue-act3_start-58
+  compilationStatus: 1
+  isSuccesfullyCompiled: 1
+  compilationErrorMessage: 
+  baseLanguage: {instanceID: 0}
+  localizations: []
