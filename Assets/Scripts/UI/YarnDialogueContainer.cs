@@ -11,10 +11,7 @@ public class YarnDialogueContainer : MonoBehaviour
     private void Awake()
     {
         nextPhraseButton = GetComponent<Button>();
-    }
-    
-    private void Start()
-    {
+        
         GameEvents.Instance.onYarnLineStart.AddListener(args =>
         {
             if (!isShown)
@@ -32,6 +29,11 @@ public class YarnDialogueContainer : MonoBehaviour
         nextPhraseButton.onClick.AddListener(
             () => GameEvents.Instance.onDialogueNextPhraseRequested.Invoke()
         );
+    }
+    
+    private void Start()
+    {
+        
     }
 
     private void Show()

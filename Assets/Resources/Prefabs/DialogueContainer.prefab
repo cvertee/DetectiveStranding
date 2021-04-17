@@ -142,8 +142,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: -13.286251}
-  m_SizeDelta: {x: 740, y: 26.5725}
+  m_AnchoredPosition: {x: 369.5, y: -13.286251}
+  m_SizeDelta: {x: 740, y: 28.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8061530916861953961
 CanvasRenderer:
@@ -175,15 +175,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e73f51f8e1b57846b8eaf2b19733973, type: 2}
-  m_sharedMaterial: {fileID: 816365045334348613, guid: 2e73f51f8e1b57846b8eaf2b19733973, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1a9799a005416e74fbd00d2968d50b4e, type: 2}
+  m_sharedMaterial: {fileID: 948513964330935297, guid: 1a9799a005416e74fbd00d2968d50b4e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287861651
+  m_fontColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -200,8 +200,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 22.95
+  m_fontSizeBase: 22.95
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -473,8 +473,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 7.134613, y: 0.713501}
+  m_SizeDelta: {x: -14.2692, y: -18.5731}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8061530917969354483
 CanvasRenderer:
@@ -504,12 +504,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris
+  m_text: "\u0425\u043E\u0440\u043E\u0448\u0438\u0439 \u0442\u0435\u043A\u0441\u0442"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e73f51f8e1b57846b8eaf2b19733973, type: 2}
-  m_sharedMaterial: {fileID: 816365045334348613, guid: 2e73f51f8e1b57846b8eaf2b19733973, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1a9799a005416e74fbd00d2968d50b4e, type: 2}
+  m_sharedMaterial: {fileID: 948513964330935297, guid: 1a9799a005416e74fbd00d2968d50b4e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -533,8 +531,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 24.81
+  m_fontSizeBase: 24.81
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -569,7 +567,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -4.2807617, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -8,10 +8,13 @@ namespace Sound
         public AudioSource soundsAudioSource;
         public AudioSource musicAudioSource;
         public AudioSource ambientAudioSource;
+
+        public bool destroyOnLoad = true;
         
         private void Start()
         {
-            DontDestroyOnLoad(this.gameObject);
+            if (!destroyOnLoad)
+                DontDestroyOnLoad(this.gameObject);
         }
 
         public void PlaySound(string soundName)

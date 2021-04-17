@@ -6,7 +6,7 @@ public class CharacterSpawner : MonoBehaviour
     public GameObject characterPrefab;
     public GameObject charactersContainer;
 
-    private void Start()
+    private void Awake()
     {
         GameEvents.Instance.onCharacterSpawnRequested.AddListener(
             args => Spawn(args[0] as string, args[1] as string, args[2] as string)
@@ -29,7 +29,7 @@ public class CharacterSpawner : MonoBehaviour
         else
         {
             // or create new one
-            var characterGo = Instantiate(characterPrefab, charactersContainer.transform);
+            var characterGo = Instantiate(characterPrefab);
             character = characterGo.GetComponent<Character>();
         }
         

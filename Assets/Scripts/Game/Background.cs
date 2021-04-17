@@ -8,12 +8,12 @@ using Yarn.Unity;
 
 public class Background : MonoBehaviour
 {
-    private Image image;
+    private SpriteRenderer spriteRenderer;
     private DialogueRunner dialogueRunner;
 
     private void Awake()
     {
-        image = GetComponent<Image>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         dialogueRunner = FindObjectOfType<DialogueRunner>();
         dialogueRunner.AddCommandHandler("cb", (parameters, complete) =>
         {
@@ -37,7 +37,7 @@ public class Background : MonoBehaviour
     private IEnumerator BackgroundChangerThread(string bg, Action onComplete)
     {
         Debug.Log($"Changing background to {bg}");
-        image.sprite = Resources.Load<Sprite>($"bg/{bg}");
+        spriteRenderer.sprite = Resources.Load<Sprite>($"bg/{bg}");
         
         //yield return new WaitForSeconds(0.001f);
         onComplete();

@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-    private Image image;
+    public Vector3 leftPosition;
+    public Vector3 middlePosition;
+    public Vector3 rightPosition;
+    public float dashSpeed = 0.25f;
+    
+    private SpriteRenderer image;
     private RectTransform rectTransform;
     private string emotion;
 
     private void Awake()
     {
-        image = GetComponent<Image>();
+        image = GetComponent<SpriteRenderer>();
         rectTransform = GetComponent<RectTransform>();
-    }
-
-    private void Start()
-    {
+        
         GameEvents.Instance.onCharacterSetEmotionRequested.AddListener( 
             OnCharacterSetEmotionRequested
         );
@@ -28,6 +30,11 @@ public class Character : MonoBehaviour
         GameEvents.Instance.onCharacterMoveRequested.AddListener( 
             OnCharacterMoveRequested
         );
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void SetName(string newName)
@@ -50,25 +57,26 @@ public class Character : MonoBehaviour
     public void SetPosition(string position)
     {
         Debug.Log($"Set {name}`s position to {position}");
-        const int offsetX = 400;
-        const int halfOffsetX = offsetX / 2;
         
         switch (position.ToLower())
         {
             case "left":
-                rectTransform.anchoredPosition = new Vector2(-halfOffsetX, 0);
+                LeanTween.moveX(gameObject, leftPosition.x, dashSpeed);
+                //transform.position = leftPosition;
                 break;
             
             case "center":
-                rectTransform.anchoredPosition = new Vector2(0, 0);
+                LeanTween.moveX(gameObject, middlePosition.x, dashSpeed);
+                //transform.position = middlePosition;
                 break;
             
             case "right":
-                rectTransform.anchoredPosition = new Vector2(halfOffsetX, 0);
+                LeanTween.moveX(gameObject, rightPosition.x, dashSpeed);
+                //transform.position = rightPosition;
                 break;
             
             default:
-                rectTransform.offsetMax = new Vector2(-offsetX, 0); // put in middle if some shit breaks itself
+                transform.position = middlePosition; // put in middle if some shit breaks itself
                 break;
         }
     }

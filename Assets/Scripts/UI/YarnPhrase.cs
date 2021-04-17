@@ -11,15 +11,17 @@ public class YarnPhrase : MonoBehaviour
     private void Awake()
     {
         text = GetComponent<TextMeshProUGUI>();
-    }
-    
-    private void Start()
-    {
+        text.text = "";
         GameEvents.Instance.onYarnLineStart.AddListener(
             args =>
             {
                 // var argsSplit = args.Split(':');
                 // text.text = argsSplit[1].Trim();
             });
+    }
+    
+    private void Start()
+    {
+        
     }
 }
