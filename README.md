@@ -2,9 +2,11 @@
 
 Simple visual novel about investigating murder. Made in Unity.
 
-![thumbnail](Doc/screen.png)
-
 Available at [itch.io](https://cvertee.itch.io/idontknowthegame)
+
+[Gameplay](https://youtu.be/beCKWrwtG6Q)
+
+![thumbnail](Doc/screen.png)
 
 Dialogues powered with [Yarn](https://github.com/YarnSpinnerTool/YarnSpinner-Unity)
 
