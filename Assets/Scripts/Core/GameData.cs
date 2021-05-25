@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Save;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yarn;
@@ -7,9 +8,29 @@ namespace Core
 {
     public static class GameData
     {
-        public static string sceneName;
-        public static bool sceneLoadedAdditively = true;
-        public static Dictionary<string, Value> YarnVariables = new Dictionary<string, Value>();
-        public static string yarnNode;
+        private static SaveData data;
+        public static SaveData Data
+        {
+            get
+            {
+                if (data == null)
+                {
+                    data = new SaveData
+                    {
+                        sceneLoadedAdditively = false,
+                        sceneName = null,
+                        yarnNode = null, // never touch it pls
+                        yarnVariables = new Dictionary<string, Value>()
+                    };
+                }
+
+                return data;
+            }
+
+            set
+            {
+                data = value;
+            }
+        }
     }
 }

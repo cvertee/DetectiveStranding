@@ -2,7 +2,6 @@
 
 namespace Core
 {
-    // Spawns game objects from path by loading resource
     public class ObjectSpawner : Singleton<ObjectSpawner>
     {
         public Object SpawnResource(string path)

@@ -24,5 +24,7 @@ namespace Core
         public StringArrayEvent onCharacterSpawnRequested = new StringArrayEvent();
 
         public UnityEvent onSceneSwitchRequested = new UnityEvent();
+
+        public UnityEvent onStoryResultAdded = new UnityEvent();
     }
 }

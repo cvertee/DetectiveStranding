@@ -81,6 +81,22 @@ public class Character : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets position instantly without animations
+    /// </summary>
+    /// <param name="position"></param>
+    public void SetPositionInstantly(string position)
+    {
+        var originalDashSpeed = dashSpeed;
+        // Instant
+        dashSpeed = 0.0f;
+        
+        SetPosition(position);
+        
+        // Return original speed
+        dashSpeed = originalDashSpeed;
+    }
+
     public void Kill() // rofl...
     {
         Debug.Log($"Removing {name}");

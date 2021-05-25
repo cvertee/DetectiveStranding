@@ -2,6 +2,7 @@ using Core;
 using Sound;
 using System.Collections;
 using Save;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
@@ -50,6 +51,17 @@ public class DialogueManager : MonoBehaviour
         {
             GameEvents.Instance.onCharacterMoveRequested.Invoke(args);
         });
+        
+        dialogueRunner.AddCommandHandler("si", args =>
+        {
+            var imageId = args[0];
+            ImageDisplayer.Show(imageId);
+        });
+        
+        dialogueRunner.AddCommandHandler("ci", args =>
+        {
+            ImageDisplayer.Hide();
+        });
 
         // cb = ChangeBackground
         // dialogueRunner.AddCommandHandler("cb", args =>
@@ -60,16 +72,22 @@ public class DialogueManager : MonoBehaviour
 
         dialogueRunner.AddCommandHandler("switchScene", args =>
         {
-            for (int n = 0; n < SceneManager.sceneCount; ++n)
+            var clickableName = args[0];
+            
+            GameEvents.Instance.onSceneSwitchRequested.Invoke();
+
+            var clickableGo = Resources.Load($"Prefabs/Clickables/{clickableName}");
+            if (clickableGo == null)
             {
-                Scene scene = SceneManager.GetSceneAt(n);
-                if (scene.name != "hat1a")
-                    SceneManager.UnloadSceneAsync(scene);
+                Debug.LogWarning($"There is no clickable items for {clickableName}");
+                GameData.Data.sceneName = null;
+                return;
             }
+            
+            Debug.Log($"switchScene: Spawning {clickableName}");
+            Instantiate(clickableGo);
 
-
-            gameManager.LoadSceneAdditively(args[0]);
-            lastLoadedScene = args[0];
+            GameData.Data.sceneName = clickableName;
         });
 
         dialogueRunner.AddCommandHandler("showDialogue", args =>
@@ -126,6 +144,20 @@ public class DialogueManager : MonoBehaviour
         dialogueRunner.AddCommandHandler("load", args =>
         {
             SaveSystem.Load();
+        });
+        
+        dialogueRunner.AddCommandHandler("addStoryResult", args =>
+        {
+            var storyResult = Resources.Load<StoryResult>($"storyboard/{args[0]}");
+            if (storyResult == null)
+            {
+                Debug.LogWarning($"Something went wrong on loading story result ({args[0]})");
+                return;
+            }
+            
+            GameData.Data.storyResults.Add(storyResult);
+            
+            GameEvents.Instance.onStoryResultAdded.Invoke();
         });
 
         GameEvents.Instance.onDialogueNextPhraseRequested.AddListener(() => dialogueUi.MarkLineComplete());

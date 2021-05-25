@@ -16,18 +16,8 @@ public class ClickableItem : MonoBehaviour
         if (locked)
             return;
 
-        var clickableEvents = GetComponent<ClickableEvents>();
-        if (clickableEvents != null)
-        {
-            clickableEvents.Invoke();
-        }
-        else
-        {
-            Debug.Log($"ClickableEvents null at {name}");
-        }
-
-        FindObjectOfType<GameManager>().StartYarnNode(yarnNodeToStart);
-
+        StartDialogue();
+        
         if (shouldDestroyOnUse)
             Destroy(this.gameObject);
     }
@@ -40,5 +30,20 @@ public class ClickableItem : MonoBehaviour
     public void Unlock()
     {
         locked = false;
+    }
+
+    public void StartDialogue()
+    {
+        var clickableEvents = GetComponent<ClickableEvents>();
+        if (clickableEvents != null)
+        {
+            clickableEvents.Invoke();
+        }
+        else
+        {
+            Debug.Log($"ClickableEvents null at {name}");
+        }
+
+        FindObjectOfType<GameManager>().StartYarnNode(yarnNodeToStart);
     }
 }

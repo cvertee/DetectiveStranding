@@ -31,12 +31,15 @@ public class CharacterSpawner : MonoBehaviour
             // or create new one
             var characterGo = Instantiate(characterPrefab);
             character = characterGo.GetComponent<Character>();
+            // Character's prefab spawns somewhere else and this can cause sliding bug
+            // This makes character spawn at right position and not slide to right or left side
+            character.SetPositionInstantly(position);
         }
         
         // and always change all these properties
         character.SetName(characterName);
         character.SetEmotion(emotion);
-        character.SetPosition(position);
+        character.SetPosition(position); // Calling it after SetPositionInstantly doesn't bring much problems
         character.InitializeImage();
     }
 }

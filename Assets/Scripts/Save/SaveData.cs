@@ -11,5 +11,6 @@ namespace Save
         public Dictionary<string, Value> yarnVariables;
         public bool sceneLoadedAdditively;
         public string yarnNode;
+        public List<StoryResult> storyResults = new List<StoryResult>();
     }
 }

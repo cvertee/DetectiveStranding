@@ -76,7 +76,21 @@ public class DebugUi : MonoBehaviour
         });
 
         yarnNodeTextField = GUILayout.TextField(yarnNodeTextField);
-        ShowButton("^ Start node", () => FindObjectOfType<GameManager>().StartYarnNode(yarnNodeTextField));
+        ShowButton("^ Start node", () =>
+        {
+            GameEvents.Instance.onSceneSwitchRequested.Invoke();
+            FindObjectOfType<GameManager>().StartYarnNode(yarnNodeTextField);
+        });
+        
+        ShowButton("Print story results", () =>
+        {
+            Debug.Log("==== STORY RESULTS ====");
+            foreach (var storyResult in GameData.Data.storyResults)
+            {
+                Debug.Log($"{storyResult.name} - {storyResult.displayName}");
+            }
+            Debug.Log("==== END ====");
+        });
     }
 
     private void ShowButton(string text, Action action)

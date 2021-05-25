@@ -29,7 +29,7 @@ public class YarnVariableStorage : VariableStorageBehaviour
     public override Value GetValue(string variableName)
     {
         Debug.Log($"Yarn: Trying to get yarn variable {variableName}");
-        if (!GameData.YarnVariables.TryGetValue(variableName, out var variable))
+        if (!GameData.Data.yarnVariables.TryGetValue(variableName, out var variable))
             return new Value(false);
         else
             return variable;
@@ -37,10 +37,10 @@ public class YarnVariableStorage : VariableStorageBehaviour
 
     public override void SetValue(string variableName, Value value)
     {
-        if (GameData.YarnVariables.ContainsKey(variableName))
-            GameData.YarnVariables[variableName] = value;
+        if (GameData.Data.yarnVariables.ContainsKey(variableName))
+            GameData.Data.yarnVariables[variableName] = value;
         else
-            GameData.YarnVariables.Add(variableName, value);
+            GameData.Data.yarnVariables.Add(variableName, value);
         
         Debug.Log($"Set {variableName} to some value");
     }

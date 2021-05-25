@@ -22,21 +22,24 @@ public class GameManager : MonoBehaviour
             var soundGo = Instantiate(soundPrefab);
         }
         
-        if (!string.IsNullOrEmpty(GameData.yarnNode))
+        if (!string.IsNullOrEmpty(GameData.Data.yarnNode))
         {
-            dialogueRunner.startNode = GameData.yarnNode;
+            dialogueRunner.startNode = GameData.Data.yarnNode;
         }
         
         dialogueRunner.onNodeStart.AddListener((node) =>
         {
             Debug.Log($"OnNodeStart:{node}");
-            GameData.yarnNode = node;
+            GameData.Data.yarnNode = node;
         });
     }
 
     private void Start()
     {
-        
+        if (GameData.Data.sceneName != null)
+        {
+            ObjectSpawner.Instance.SpawnResource($"Prefabs/Clickables/{GameData.Data.sceneName}");
+        }
     }
     
     void Update()
@@ -54,17 +57,17 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        GameData.sceneName = sceneName;
-        GameData.sceneLoadedAdditively = false;
-        GameEvents.Instance.onSceneSwitchRequested.Invoke();
+        GameData.Data.sceneName = sceneName;
+        GameData.Data.sceneLoadedAdditively = false;
+        //GameEvents.Instance.onSceneSwitchRequested.Invoke();
         SceneManager.LoadScene(sceneName);
     }
 
     public void LoadSceneAdditively(string sceneName)
     {
-        GameData.sceneName = sceneName;
-        GameData.sceneLoadedAdditively = true;
-        GameEvents.Instance.onSceneSwitchRequested.Invoke();
+        GameData.Data.sceneName = sceneName;
+        GameData.Data.sceneLoadedAdditively = true;
+        //GameEvents.Instance.onSceneSwitchRequested.Invoke();
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 

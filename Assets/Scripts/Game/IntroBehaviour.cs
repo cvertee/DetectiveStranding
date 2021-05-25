@@ -14,9 +14,9 @@ namespace Game
             videoPlayer = FindObjectOfType<VideoPlayer>();
             videoPlayer.loopPointReached += source =>
             {
-                SceneManager.LoadScene("hat1a");
+                OnEnd();
             };
-            AudioManager.Instance.PlayMusic("MainTheme");
+            AudioManager.Instance.PlayMusic("Bamboo");
         }
 
         private void Start()
@@ -26,10 +26,16 @@ namespace Game
         
         private void Update()
         {
-            if (!videoPlayer.isPlaying)
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Escape))
             {
-            //    SceneManager.LoadSceneAsync("hat1a", LoadSceneMode.Single);
+                videoPlayer.Stop();
+                OnEnd();
             }
+        }
+
+        private void OnEnd()
+        {
+            SceneManager.LoadScene("hat1a");
         }
     }
 }
