@@ -8,7 +8,7 @@ public class ClickableItemsContainer : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        GameEvents.Instance.onSceneSwitchRequested.AddListener(() =>
+        GameEvents.Instance.onSceneSwitchRequested.AddListener((scene) =>
         {
             Destroy(this.gameObject);
         });

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Core;
 using Newtonsoft.Json;
 using Save;
@@ -32,10 +33,9 @@ public class DebugUi : MonoBehaviour
 
     private void OnGUI()
     {
+        #if UNITY_EDITOR
         if (!isEnabled)
             return;
-
-        ShowButton("Reload", () => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
         
         ShowButton("Play music", () => audioManager.PlayMusic("Time"));
         ShowButton("Stop music", () => audioManager.StopMusic());
@@ -55,42 +55,62 @@ public class DebugUi : MonoBehaviour
             SaveSystem.Load();
         });
 
-        ShowButton("Try to LOAD from initial JSON", () =>
-        {
-            var json = Resources.Load<TextAsset>("EmptySave").text;
-            Debug.Log($"Loaded {json}");
-
-            var saveData = JsonConvert.DeserializeObject<SaveData>(json);
-
-            SaveSystem.LoadFrom(saveData);
-        });
-
-        ShowButton("Try to LOAD from pre-created JSON", () =>
-        {
-            var json = Resources.Load<TextAsset>("TestSave").text;
-            Debug.Log($"Loaded {json}");
-
-            var saveData = JsonConvert.DeserializeObject<SaveData>(json);
-
-            SaveSystem.LoadFrom(saveData);
-        });
-
         yarnNodeTextField = GUILayout.TextField(yarnNodeTextField);
         ShowButton("^ Start node", () =>
         {
-            GameEvents.Instance.onSceneSwitchRequested.Invoke();
+            GameEvents.Instance.onSceneSwitchRequested.Invoke(yarnNodeTextField);
             FindObjectOfType<GameManager>().StartYarnNode(yarnNodeTextField);
         });
         
         ShowButton("Print story results", () =>
         {
             Debug.Log("==== STORY RESULTS ====");
-            foreach (var storyResult in GameData.Data.storyResults)
+            foreach (var storyResult in GameData.GetStoryResults())
             {
                 Debug.Log($"{storyResult.name} - {storyResult.displayName}");
             }
             Debug.Log("==== END ====");
         });
+
+        ShowButton("Print yarn node trace", () =>
+        {
+            var sb = new StringBuilder();
+            
+            // Go through each visited node and add it to whole string to print it once
+            foreach (var visitedNode in GameData.GetVisitedNodes())
+            {
+                sb.AppendLine(visitedNode);
+            }
+
+            Debug.Log($"Node trace\n{sb}");
+        });
+
+        ShowButton("Spawn an", () =>
+        {
+            GameEvents.Instance.onCharacterSpawnRequested.Invoke(new string[] {"an", "default", Character.MoveType.Center});
+        });
+        ShowButton("Spawn clickable act1", () =>
+        {
+            GameEvents.Instance.onSceneSwitchRequested.Invoke("act1");
+        });
+        ShowButton("Show test image", () =>
+        {
+            GameEvents.Instance.onImageShowRequested.Invoke("TestImage");
+        });
+        ShowButton("Hide test image", () =>
+        {
+            GameEvents.Instance.onImageHideRequested.Invoke();
+        });
+        ShowButton("-", () => Debug.Log("This button does nothing"));
+        ShowButton("Superfast enable", () =>
+        {
+            FindObjectOfType<GameManager>().SpeedupAutoSkip();
+        });
+        ShowButton("Superfast disable", () =>
+        {
+            FindObjectOfType<GameManager>().RestoreAutoSkipSpeed();
+        });
+        #endif
     }
 
     private void ShowButton(string text, Action action)

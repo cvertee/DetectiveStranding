@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Core;
+using Save;
 using Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     {
         dialogueUi = FindObjectOfType<DialogueUI>();
         dialogueRunner = FindObjectOfType<DialogueRunner>();
+        var dialogueData = GameData.GetDialogueData();
 
         if (FindObjectOfType<AudioManager>() == null)
         {
@@ -22,23 +24,27 @@ public class GameManager : MonoBehaviour
             var soundGo = Instantiate(soundPrefab);
         }
         
-        if (!string.IsNullOrEmpty(GameData.Data.yarnNode))
+        if (!string.IsNullOrEmpty(dialogueData.lastNode))
         {
-            dialogueRunner.startNode = GameData.Data.yarnNode;
+            dialogueRunner.startNode = dialogueData.lastNode;
         }
         
         dialogueRunner.onNodeStart.AddListener((node) =>
         {
             Debug.Log($"OnNodeStart:{node}");
-            GameData.Data.yarnNode = node;
+            dialogueData.lastNode = node;
+            
+            GameData.AddVisitedNode(node);
         });
     }
 
     private void Start()
     {
-        if (GameData.Data.sceneName != null)
+        var clickableData = GameData.GetClickableData();
+        
+        if (clickableData.isShown && clickableData.name != null)
         {
-            ObjectSpawner.Instance.SpawnResource($"Prefabs/Clickables/{GameData.Data.sceneName}");
+            ObjectSpawner.Instance.SpawnResource($"Prefabs/Clickables/{clickableData.name}");
         }
     }
     
@@ -57,18 +63,30 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        GameData.Data.sceneName = sceneName;
-        GameData.Data.sceneLoadedAdditively = false;
-        //GameEvents.Instance.onSceneSwitchRequested.Invoke();
+        var sceneData = GameData.GetSceneData();
+        sceneData.name = sceneName;
+        sceneData.loadedAdditively = false;
+        
         SceneManager.LoadScene(sceneName);
     }
 
     public void LoadSceneAdditively(string sceneName)
     {
-        GameData.Data.sceneName = sceneName;
-        GameData.Data.sceneLoadedAdditively = true;
-        //GameEvents.Instance.onSceneSwitchRequested.Invoke();
+        var sceneData = GameData.GetSceneData();
+        sceneData.name = sceneName;
+        sceneData.loadedAdditively = true;
+        
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
+
+    public void SpeedupAutoSkip()
+    {
+        GameData.autoSkipWaitTime = 0.0f;
+    }
+
+    public void RestoreAutoSkipSpeed()
+    {
+        GameData.autoSkipWaitTime = 0.2f;
     }
 
     public void Exit()

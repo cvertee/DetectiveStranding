@@ -16,7 +16,7 @@ namespace Game
             {
                 OnEnd();
             };
-            AudioManager.Instance.PlayMusic("Bamboo");
+            AudioManager.Instance.PlayMusic("MainTheme");
         }
 
         private void Start()

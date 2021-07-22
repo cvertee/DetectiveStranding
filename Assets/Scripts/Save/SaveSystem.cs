@@ -8,11 +8,11 @@ namespace Save
 {
     public static class SaveSystem
     {
-        public static string SAVE_FILE = Application.persistentDataPath + "/save.sav"; // TODO: probably several profiles!
+        public static readonly string SAVE_FILE = Application.persistentDataPath + "/save.sav";
             
         public static void Save()
         {
-            var json = JsonConvert.SerializeObject(GameData.Data);
+            var json = JsonConvert.SerializeObject(GameData.GetSaveData());
 
             Debug.Log($"Saving json to {SAVE_FILE} | {json}");
 
@@ -33,18 +33,8 @@ namespace Save
             var json = File.ReadAllText(SAVE_FILE);
             var saveData = JsonConvert.DeserializeObject<SaveData>(json);
 
-            GameData.Data = saveData;
+            GameData.UpdateSaveData(saveData);
             SceneManager.LoadScene("hat1a", LoadSceneMode.Single);
-        }
-        
-        public static void LoadFrom(SaveData saveData)
-        {
-            //GameData.sceneName = saveData.sceneName;
-            //GameData.sceneLoadedAdditively = saveData.sceneLoadedAdditively;
-            //GameData.YarnVariables = saveData.yarnVariables;
-            //GameData.yarnNode = saveData.yarnNode;
-
-            
         }
     }
 }

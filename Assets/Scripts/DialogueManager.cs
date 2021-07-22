@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour
 #endif
 
         dialogueUi.onLineStart.AddListener((arg) => GameEvents.Instance.onYarnLineStart.Invoke(arg));
-        dialogueUi.onDialogueEnd.AddListener(() => GameEvents.Instance.onYarnDialogueEnd.Invoke());
+        dialogueRunner.onDialogueComplete.AddListener(() => GameEvents.Instance.onYarnDialogueEnd.Invoke());
 
         // sc = SpawnCharacter
         dialogueRunner.AddCommandHandler("sc", args =>
@@ -52,42 +52,25 @@ public class DialogueManager : MonoBehaviour
             GameEvents.Instance.onCharacterMoveRequested.Invoke(args);
         });
         
+        // si = ShowImage
         dialogueRunner.AddCommandHandler("si", args =>
         {
             var imageId = args[0];
-            ImageDisplayer.Show(imageId);
-        });
-        
-        dialogueRunner.AddCommandHandler("ci", args =>
-        {
-            ImageDisplayer.Hide();
+            
+            GameEvents.Instance.onImageShowRequested.Invoke(imageId);
         });
 
-        // cb = ChangeBackground
-        // dialogueRunner.AddCommandHandler("cb", args =>
-        // {
-        //     Debug.Log($"got cb {args[0]}");
-        //     GameEvents.Instance.onBackgroundChangeRequest.Invoke(args[0]);
-        // });
+        // ci = CloseImage
+        dialogueRunner.AddCommandHandler("ci", args =>
+        {
+            GameEvents.Instance.onImageHideRequested.Invoke();
+        });
 
         dialogueRunner.AddCommandHandler("switchScene", args =>
         {
             var clickableName = args[0];
             
-            GameEvents.Instance.onSceneSwitchRequested.Invoke();
-
-            var clickableGo = Resources.Load($"Prefabs/Clickables/{clickableName}");
-            if (clickableGo == null)
-            {
-                Debug.LogWarning($"There is no clickable items for {clickableName}");
-                GameData.Data.sceneName = null;
-                return;
-            }
-            
-            Debug.Log($"switchScene: Spawning {clickableName}");
-            Instantiate(clickableGo);
-
-            GameData.Data.sceneName = clickableName;
+            GameEvents.Instance.onSceneSwitchRequested.Invoke(clickableName);
         });
 
         dialogueRunner.AddCommandHandler("showDialogue", args =>
@@ -116,8 +99,6 @@ public class DialogueManager : MonoBehaviour
 
         dialogueRunner.AddCommandHandler("stopAllMusic", args =>
         {
-            //var soundName = args[0];
-
             AudioManager.Instance.StopMusic();
         });
 
@@ -130,8 +111,6 @@ public class DialogueManager : MonoBehaviour
 
         dialogueRunner.AddCommandHandler("stopAllAmbient", args =>
         {
-            //var soundName = args[0];
-
             AudioManager.Instance.StopAmbient();
         });
         
@@ -148,6 +127,7 @@ public class DialogueManager : MonoBehaviour
         
         dialogueRunner.AddCommandHandler("addStoryResult", args =>
         {
+            return; // NOTE: deprecated for now
             var storyResult = Resources.Load<StoryResult>($"storyboard/{args[0]}");
             if (storyResult == null)
             {
@@ -155,7 +135,7 @@ public class DialogueManager : MonoBehaviour
                 return;
             }
             
-            GameData.Data.storyResults.Add(storyResult);
+            GameData.GetStoryResults().Add(storyResult);
             
             GameEvents.Instance.onStoryResultAdded.Invoke();
         });
@@ -171,19 +151,7 @@ public class DialogueManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftControl))
                 dialogueUi.MarkLineComplete();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(GameData.autoSkipWaitTime);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

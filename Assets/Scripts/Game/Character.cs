@@ -3,22 +3,37 @@ using Core;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Responsible for displaying and manipulating character sprites on screen 
 public class Character : MonoBehaviour
 {
+    public abstract class MoveType
+    {
+        public const string Right = "right";
+        public const string Left = "left";
+        public const string Center = "center";
+    }
+    
+    // Each of these positions is used on Setting Position
+    // "left" will move character to leftPosition and so on
     public Vector3 leftPosition;
     public Vector3 middlePosition;
     public Vector3 rightPosition;
+    
+    // Dash speed is the speed with which character moves smoothly between sides
+    // Like from Left to Right, etc
+    // TODO: move it to Game globals scriptable object?
     public float dashSpeed = 0.25f;
     
-    private SpriteRenderer image;
-    private RectTransform rectTransform;
+    private SpriteRenderer sprite;
+    
+    // Emotion value basically doesn't do some magic, it is used on loading whole character
+    // sprite again with required emotion which is here
     private string emotion;
 
     private void Awake()
     {
-        image = GetComponent<SpriteRenderer>();
-        rectTransform = GetComponent<RectTransform>();
-        
+        sprite = GetComponent<SpriteRenderer>();
+
         GameEvents.Instance.onCharacterSetEmotionRequested.AddListener( 
             OnCharacterSetEmotionRequested
         );
@@ -32,25 +47,25 @@ public class Character : MonoBehaviour
         );
     }
 
-    private void Start()
-    {
-        
-    }
-
     public void SetName(string newName)
     {
-        this.name = newName;
+        name = newName;
     }
 
     public void InitializeImage()
     {
-        image.sprite = Resources.Load<Sprite>($"characters/{name}/{name}_{emotion}");
+        sprite.sprite = Resources.Load<Sprite>($"characters/{name}/{name}_{emotion}");
     }
     
+    /// <summary>
+    /// Reload whole sprite but with new emotion
+    /// </summary>
     public void SetEmotion(string newEmotion)
     {
         Debug.Log($"Set {name}`s emotion to {newEmotion}");
-        this.emotion = newEmotion;
+        
+        emotion = newEmotion;
+        
         InitializeImage();
     }
 
@@ -60,19 +75,16 @@ public class Character : MonoBehaviour
         
         switch (position.ToLower())
         {
-            case "left":
+            case MoveType.Left:
                 LeanTween.moveX(gameObject, leftPosition.x, dashSpeed);
-                //transform.position = leftPosition;
                 break;
             
-            case "center":
+            case MoveType.Center:
                 LeanTween.moveX(gameObject, middlePosition.x, dashSpeed);
-                //transform.position = middlePosition;
                 break;
             
-            case "right":
+            case MoveType.Right:
                 LeanTween.moveX(gameObject, rightPosition.x, dashSpeed);
-                //transform.position = rightPosition;
                 break;
             
             default:
@@ -97,24 +109,30 @@ public class Character : MonoBehaviour
         dashSpeed = originalDashSpeed;
     }
 
+    /// <summary>
+    /// "Kills" character i.e. destroys it
+    /// </summary>
     public void Kill() // rofl...
     {
         Debug.Log($"Removing {name}");
         Destroy(gameObject);
     }
     
+    //
+    // Each of these methods below always check if event is called for them
+    // by comparing name to name in argument
+    //
     private void OnCharacterSetEmotionRequested(string[] args)
     {
-        var argName = args[0] as string;
-        var argEmotion = args[1] as string;
+        var argName = args[0];
+        var argEmotion = args[1];
                 
         if (name == argName)
             SetEmotion(argEmotion);
     }
 
-    private void OnCharacterRemoveRequested(string args)
+    private void OnCharacterRemoveRequested(string argName)
     {
-        var argName = args;
         if (name == argName)
             Kill();
     }

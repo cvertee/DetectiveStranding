@@ -19,11 +19,8 @@ public class YarnDialogueContainer : MonoBehaviour
             else
                 Show();
         });
-        //Notific.Subscribe(NotificType.DialogueContainerShowRequested, args => Show());
         GameEvents.Instance.onDialogueContainerShowRequested.AddListener(Show);
-        //Notific.Subscribe(NotificType.YarnDialogueEnd, args => Hide());
         GameEvents.Instance.onYarnDialogueEnd.AddListener(Hide);
-        //Notific.Subscribe(NotificType.DialogueContainerHideRequested, args => ForceHide());
         GameEvents.Instance.onDialogueContainerHideRequested.AddListener(ForceHide);
 
         nextPhraseButton.onClick.AddListener(

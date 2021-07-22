@@ -1,19 +1,17 @@
-﻿using UnityEngine;
+﻿using Core;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class ImageDisplayer : MonoBehaviour
     {
-        private static ImageDisplayer current;
-        
         public Image image;
-
-        private const string LoadPath = "misc/si/";
 
         private void Awake()
         {
-            current = this;
+            GameEvents.Instance.onImageShowRequested.AddListener((id) => Show(id));
+            GameEvents.Instance.onImageHideRequested.AddListener(Hide);
 
             if (image == null)
                 image = GetComponent<Image>(); // try to look for it in this object 
@@ -23,21 +21,21 @@ namespace UI
 
         private void SetImage(string imageId)
         {
-            var fullPath = LoadPath + imageId;
-            Debug.Log($"Loading image from {fullPath}");
-            image.sprite = Resources.Load<Sprite>(fullPath);
+            Debug.Log($"Loading shown image {imageId}");
+            image.sprite = ResourceLoader.LoadShownImage(imageId);
         }
         
-        public static void Show(string imageId)
+        public void Show(string imageId)
         {
-            current.gameObject.SetActive(true);
-            current.SetImage(imageId);
+            Debug.Log($"{nameof(ImageDisplayer)}: Show");
+            gameObject.SetActive(true);
+            SetImage(imageId);
         }
 
-        public static void Hide()
+        public void Hide()
         {
-            Debug.Log("ImageDisplayer: hide");
-            current.gameObject.SetActive(false);
+            Debug.Log($"{nameof(ImageDisplayer)}: Hide");
+            gameObject.SetActive(false);
         }
     }
 }

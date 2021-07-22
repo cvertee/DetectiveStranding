@@ -29,20 +29,20 @@ public class YarnVariableStorage : VariableStorageBehaviour
     public override Value GetValue(string variableName)
     {
         Debug.Log($"Yarn: Trying to get yarn variable {variableName}");
-        if (!GameData.Data.yarnVariables.TryGetValue(variableName, out var variable))
-            return new Value(false);
-        else
-            return variable;
+
+        var dialogueData = GameData.GetDialogueData();
+        var hasVariable = dialogueData.HasVariable(variableName);
+
+        return new Value(hasVariable);
     }
 
     public override void SetValue(string variableName, Value value)
     {
-        if (GameData.Data.yarnVariables.ContainsKey(variableName))
-            GameData.Data.yarnVariables[variableName] = value;
-        else
-            GameData.Data.yarnVariables.Add(variableName, value);
+        Debug.Log($"Yarn: Set value {variableName}");
         
-        Debug.Log($"Set {variableName} to some value");
+        var dialogueData = GameData.GetDialogueData();
+        
+        dialogueData.AddOrUpdateVariable(variableName, value);
     }
 
     public override void ResetToDefaults()
